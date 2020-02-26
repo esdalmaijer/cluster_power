@@ -19,48 +19,6 @@ from cluster import clustering, cluster_comparison, convenience_clustering, \
 
 from data_generation_playground import create_sample, create_equidistant_sample, \
     dD_plot, fuzzy_silhouette_coefficient, predict_D
-    
-
-def compute_silhouette_coefficient(X, y, u=None, alpha=1.0):
-    
-    # Count the unique labels.
-    labels = numpy.unique(y)
-    # Create a vector for easy Boolean-vector creation.
-    arr = numpy.zeros(X.shape[0], dtype=int)
-    arr[:,] = range(0,X.shape[0])
-    # Create an empty vector to hold silhouette values in.
-    s = numpy.zeros(y.shape, dtype=float) * numpy.NaN
-    # Loop through all samples.
-    for i in range(X.shape[0]):
-        # Select all non-i samples.
-        sel = arr != i
-        # Compute the distance between the current sample and all other samples.
-        d = numpy.sqrt(numpy.sum((X[sel,:] - X[i,:])**2, axis=1))
-        # Compute the distance between the current sample and its cluster
-        # members.
-        a = numpy.mean(d[y[sel]==y[i]])
-        # Compute the distance between the current sample and all other
-        # clusters' members.
-        b_min = numpy.inf
-        for lbl in labels:
-            if y[i] != lbl:
-                b = numpy.mean(d[y[sel]==lbl])
-                if b < b_min:
-                    b_min = copy.copy(b)
-        # Compute the cluster silhouette for this sample.
-        s[i] = (b_min - a) / max(a, b_min)
-    
-    if u is None:
-        s_m = numpy.mean(s)
-    else:
-        # Find largest and second-largest elements for all samples.
-        u_sorted = numpy.sort(u, axis=1)
-        u_p = u_sorted[:,-1]
-        u_q = u_sorted[:,-2]
-        # Compute the fuzzy silhouette score.
-        s_m = numpy.sum( ((u_p - u_q)**alpha) * s) / numpy.sum((u_p - u_q)**alpha)
-
-    return s_m, s
 
 
 # # # # #
