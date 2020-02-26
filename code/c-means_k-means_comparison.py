@@ -1,3 +1,6 @@
+# If you're looking for someone to blame for this, email:
+# Edwin Dalmaijer, edwin.dalmaijer@mrc-cbu.cam.ac.uk
+
 import os
 import copy
 import time
@@ -167,7 +170,6 @@ for di, data_name in enumerate(dataset_names):
         for i in range(m.shape[1]):
             X[:,:,di][y_truth[:,di]==i,:] = numpy.random.multivariate_normal( \
                 m[:,i], cov_matrix, size=sample_n[i])
-
 
 # PLOT
 # Set random seed for reproducibility (MDS and k-means are stochastic).
@@ -454,8 +456,7 @@ pyplot.close(fig)
 # HARD AND FUZZY SILHOUETTES
 
 # Define ranges for parameters.
-d_range = numpy.arange(0.5, 10.5, 0.5) #[2, 3, 4, 6, 8]
-#d_range = [0.0, 0.3, 0.8, 1.8, 3.8, 7.8]
+d_range = numpy.arange(0.5, 10.5, 0.5)
 k_range = [1, 2, 3, 4]
 k_guess_range = range(2,8)
 n_iterations = 100
@@ -619,46 +620,3 @@ for i in range(ax.shape[0]):
 fig.savefig(os.path.join(OUTDIR, "fig_03_silhouette_comparison.png"))
 pyplot.close(fig)
 
-
-#
-## Apply c-means.
-#cntr, u, u0, d, jm, p, fpc = skfuzzy.cluster.cmeans(numpy.transpose(X_), k, \
-#    2, error=0.005, maxiter=1000, init=None)
-## Get hard cluster membership.
-#y = numpy.argmax(u, axis=0)
-## Compute silhouette scores.
-#s_fuzzy, sil = fuzzy_silhouette_coefficient(X_, y, numpy.transpose(u), alpha=1.0)
-#s_hard = numpy.mean(sil)
-#
-#pyplot.figure()
-#for lbl in range(u.shape[0]):
-#    # Create a colour array with varrying transparency.
-#    rgb = matplotlib.colors.to_rgb(PLOTCOLS[lbl])
-#    col = numpy.zeros((X_.shape[0],4), dtype=float)
-#    col[:,0:3] = rgb
-#    col[:,3] = u[lbl,:]
-#    # Draw the points.
-#    pyplot.scatter(X_[:,0], X_[:,1], color=col)
-#
-#
-## Try a few different c-means options.
-#k_guess_range = range(2,11)
-#sil_fuzz = numpy.zeros(len(k_guess_range))
-#sil_hard = numpy.zeros(len(k_guess_range))
-#fpc = numpy.zeros(len(k_guess_range))
-#for i, k_guess in enumerate(k_guess_range):
-#    # Apply c-means.
-#    cntr, u, u0, d, jm, p, fpc[i] = skfuzzy.cluster.cmeans(numpy.transpose(X_), \
-#        k_guess, 2, error=0.005, maxiter=1000, init=None)
-#    # Get hard cluster membership.
-#    y = numpy.argmax(u, axis=0)
-#    # Compute silhouette scores.
-#    sil_fuzz[i], sil = fuzzy_silhouette_coefficient(X_, y, numpy.transpose(u), \
-#        alpha=1.0)
-#    sil_hard[i] = numpy.mean(sil)
-#
-#pyplot.figure()
-#pyplot.plot(k_guess_range, sil_fuzz, 'o-', label="Fuzzy")
-#pyplot.plot(k_guess_range, sil_hard, 'o-', label="Hard")
-#pyplot.plot(k_guess_range, fpc, 'o-', label="FPC?")
-#pyplot.legend(loc="upper right")

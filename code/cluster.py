@@ -1,3 +1,6 @@
+# If you're looking for someone to blame for this, email:
+# Edwin Dalmaijer, edwin.dalmaijer@mrc-cbu.cam.ac.uk
+
 import os
 import copy
 

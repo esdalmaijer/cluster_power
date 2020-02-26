@@ -1,3 +1,6 @@
+# If you're looking for someone to blame for this, email:
+# Edwin Dalmaijer, edwin.dalmaijer@mrc-cbu.cam.ac.uk
+
 import os
 import copy
 import time
@@ -104,11 +107,14 @@ SIM_D = range(1,11)
 # Set the simulation covariance type.
 SIM_COV_TYPE = "3-factor"
 # Cluster algorithms to be run on simulations for power.
-SIM_CLUSTER_METHODS = ["CMEANS"] #["HDBSCAN", "KMEANS", "CMEANS"]
+SIM_CLUSTER_METHODS = ["HDBSCAN", "KMEANS", "CMEANS"]
 
 # FILES AND FOLDERS
 # Auto-detect the current directory.
 DIR = os.path.dirname(os.path.abspath(__file__))
+# For GitHub, the organisation puts the code, data, and output directories
+# at the same level. Hence, we need one level higher than the current.
+DIR = os.path.dirname(DIR)
 # Construct paths to data directories.
 DATADIR = os.path.join(DIR, "data")
 COV_DIR = os.path.join(DATADIR, "covariance")
@@ -202,10 +208,6 @@ for ci, cov_type in enumerate(COVARIANCE_TYPES):
         # Set diagonal to 1.0
         di = numpy.diag_indices(N_FEATURES, ndim=2)
         cov_matrix[di] = 1.0
-        
-#        pyplot.figure()
-#        pyplot.imshow(cov_matrix, vmin=-1, vmax=1, cmap="coolwarm")
-#        pyplot.title(cov_type)
         
         # Save the covariance matrix in a CSV file.
         with open(fpath, "w") as f:
