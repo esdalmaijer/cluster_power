@@ -8,6 +8,10 @@ This is the code for data simulation, dimensionality reduction, and clustering u
 Please cite the manuscript in any work that you publish on the basis of this code.
 
 
+![Bunny amid science eggs and Easter graphs](https://github.com/esdalmaijer/cluster_power/raw/master/github_social_image.jpg "FUZZY CLUSTER POWERRRRR")
+
+
+
 How do I use this?
 ------------------
 
@@ -91,4 +95,6 @@ License
 -------
 
 GPLv3. The full legal document is enclosed, but basically: Use as you please, but credit Dr Edwin Dalmaijer (and cite the above paper where appropriate). Also don't blame me if using this code somehow causes you harm.
+
+The bunny photo used here is by Tim Reckmann, who originally posted it to Flickr, after which it was uploaded to Wikimedia Commons as [Bunny_with_eggs_in_Easter](https://commons.wikimedia.org/wiki/File:Bunny_with_eggs_in_Easter.jpg). It is licensed under the terms of the cc-by-2.0.
 
