@@ -39,7 +39,7 @@ To run our simulations, change the script `cluster_power.py`, specifically where
 - "ICA" independent component analysis
 - "FA" factor analysis
 - "TSNE" t-stochastic neighbour embedding
-- "UMAP" uniform manifold approximation and embedding
+- "UMAP" uniform manifold approximation and projection
 - "RANDOMPROJECTION"
 - "FEATUREAGGLOMERATION"
 - "ISOMAP"
@@ -84,11 +84,11 @@ I've included a `pip freeze` output, but I'm sure that not all listed dependenci
 Do I smell Python 2?
 --------------------
 
-Yes, sorry. One thousand written apologies and a Chelsea bun for everyone who is negatively impacted by this, and willing to come claim them.
+Yes, sorry. One thousand written apologies (`print("\n".join(1000*["Sorry!"]))`) and a Chelsea bun for everyone who is negatively impacted by this, and willing to come claim them.
 
 This started as what seemed to be a really quick thing in 2019. It then rapidly spiralled out of control, as complexities were becoming apparent. That said, the code likely only needs a few changes to run smoothly on Python 3, and all dependencies should be compatible too.
 
-I can't update the code myself, as I need to block out enough time in my days to play with my demanding cat. But I'll happily accept pull requests of people who heroically take on the challenge.
+I can't update the code myself, as I need to block out enough daily time to play with my demanding cat. But I'll happily accept pull requests of people who heroically take on the challenge.
 
 
 License
