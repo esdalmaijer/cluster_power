@@ -122,7 +122,7 @@ def create_sample(n_observations, n_features, n_different, d_different, \
             cov_matrix /= numpy.max(cov_matrix)
 
     # Determine what features will be different.
-    diff_i = range(n_features)
+    diff_i = list(range(n_features))
     numpy.random.shuffle(diff_i)
     diff_i = diff_i[:n_different]
     
@@ -272,9 +272,9 @@ def dD_plot(fig, ax, m, xticklabels, yticklabels):
     cbar = fig.colorbar(im, cax=cax, orientation='vertical')
     cbar.set_label(r"Centroid distance $\Delta$", fontsize=16)
     # Add axis ticks.
-    ax.set_xticks(numpy.arange(0, m.shape[1]+1))
+    ax.set_xticks(numpy.arange(0, m.shape[1]))
     ax.set_xticklabels(xticklabels, fontsize=12)
-    ax.set_yticks(numpy.arange(0, m.shape[0]+1))
+    ax.set_yticks(numpy.arange(0, m.shape[0]))
     ax.set_yticklabels(yticklabels, fontsize=12)
     # Set axis limits.
     ax.set_xlim(-0.5, m.shape[1]-0.5)
@@ -299,7 +299,7 @@ def fuzzy_silhouette_coefficient(X, y, u=None, alpha=1.0):
     arr = numpy.zeros(X.shape[0], dtype=int)
     arr[:,] = range(0,X.shape[0])
     # Create an empty vector to hold silhouette values in.
-    s = numpy.zeros(y.shape, dtype=float) * numpy.NaN
+    s = numpy.zeros(y.shape, dtype=float) * numpy.nan
     # Loop through all samples.
     for i in range(X.shape[0]):
         # Select all non-i samples.

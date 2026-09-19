@@ -15,7 +15,7 @@ import sklearn
 from sklearn import cluster, decomposition, preprocessing
 from sklearn.impute import SimpleImputer
 from sklearn.manifold import Isomap, LocallyLinearEmbedding, MDS, TSNE
-from sklearn.metrics import calinski_harabaz_score, silhouette_samples, silhouette_score
+from sklearn.metrics import calinski_harabasz_score, silhouette_samples, silhouette_score
 from sklearn.neighbors import kneighbors_graph, KNeighborsRegressor
 from sklearn.random_projection import GaussianRandomProjection, SparseRandomProjection
 
@@ -184,7 +184,7 @@ def plot_samples(X, xi, yi, zi, ci, xvar, yvar, zvar, cvar, savepath=None, ax=No
             vmin = numpy.nanmin(X[:,ci])
             vmax = numpy.nanmin(X[:,ci])
         # Create new colourmap and normalisation instances.
-        cmap = matplotlib.cm.get_cmap(cmapname)
+        cmap = matplotlib.colormaps[cmapname]
         norm = matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
 
     # Two-dimensional plot.
@@ -197,7 +197,7 @@ def plot_samples(X, xi, yi, zi, ci, xvar, yvar, zvar, cvar, savepath=None, ax=No
             )
     # Two-dimensional plot with colour specifying a third dimension.
     elif zi is None:
-        cmap = matplotlib.cm.get_cmap("coolwarm")
+        cmap = matplotlib.colormaps["coolwarm"]
         absmax = max([numpy.nanmin(X[:,ci]), numpy.nanmax(X[:,ci])])
         vmin = -absmax
         vmax = absmax
@@ -668,7 +668,7 @@ def preprocess(X, mode='standardise', impute=None):
         X_ = numpy.copy(X[include,:])
     elif impute in ["mean", "median", "most_frequent"]:
         # Construct a new X with imputed values.
-        imputer = SimpleImputer(missing_values=numpy.NaN, strategy=impute, \
+        imputer = SimpleImputer(missing_values=numpy.nan, strategy=impute, \
             copy=True)
         X_ = imputer.fit_transform(X)
         # To match non-imputation cases, create an include vector (which will
@@ -679,7 +679,7 @@ def preprocess(X, mode='standardise', impute=None):
         # Find all complete datasets.
         complete = (numpy.sum(numpy.isnan(X), axis=1) == 0).astype(bool)
         # Create a new dataset to add the imputed data to.
-        X_ = numpy.zeros((n_subjects, n_features), dtype=float) * numpy.NaN
+        X_ = numpy.zeros((n_subjects, n_features), dtype=float) * numpy.nan
         # Copy complete datasets into X_.
         X_[complete,:] = numpy.copy(X[complete,:])
         # Loop through all participants.
@@ -1007,7 +1007,7 @@ def clustering(X, mode="KMEANS", n_clusters=None):
         algorithm = cluster.AgglomerativeClustering( \
             n_clusters=n_clusters, \
             linkage="average", \
-            affinity=mode.lower())
+            metric=mode.lower())
     
     elif mode == 'SPECTRAL':
         # Create a SpectralClustering instance.
@@ -1190,7 +1190,7 @@ def convenience_clustering(X, mode, max_clusters, outpath, varnames=None, \
                 silhouette_coefficient_original[k] = numpy.mean(silhouette_vals_original)
         
             # Compute the Calinski-Harabaz index.
-            calinski_harabaz[k] = calinski_harabaz_score(X, y)
+            calinski_harabaz[k] = calinski_harabasz_score(X, y)
     
         # Plot the clusters in the data space.
         if X.shape[1] == 2:

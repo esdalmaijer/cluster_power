@@ -12,7 +12,7 @@ from matplotlib import pyplot
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 from sklearn import datasets
-from sklearn.metrics import adjusted_rand_score, calinski_harabaz_score, \
+from sklearn.metrics import adjusted_rand_score, calinski_harabasz_score, \
     silhouette_samples, silhouette_score
 import skfuzzy
 
@@ -50,7 +50,7 @@ DIR = os.path.dirname(os.path.abspath(__file__))
 # Construct paths to output directories.
 OUTDIR = os.path.join(DIR, "output", "example_plots")
 if not os.path.isdir(OUTDIR):
-    os.mkdir(OUTDIR)
+    os.makedirs(OUTDIR)
 
 
 # # # # #
@@ -470,7 +470,7 @@ fig.subplots_adjust(left=0.05, bottom=0.1, right=0.95, top=0.90, \
     wspace=0.1, hspace=0.1)
 
 # Create a normed colour.
-cmap = matplotlib.cm.get_cmap("viridis")
+cmap = matplotlib.colormaps["viridis"]
 norm = matplotlib.colors.Normalize(vmin=0, vmax=10.0)
 
 # Loop through all combinations of k and d.
