@@ -81,15 +81,13 @@ I've included a `pip freeze` output, but I'm sure that not all listed dependenci
 - UMAP, umap-learn==0.2.1
 
 
-Do I smell Python 2?
---------------------
+Python version
+--------------
 
-Yes, sorry. One thousand written apologies (`print("\n".join(1000*["Sorry!"]))`) and a Chelsea bun for everyone who is negatively impacted by this, and willing to come claim them.
-
-This started as what seemed to be a really quick thing in 2019. It then rapidly spiralled out of control, as complexities were becoming apparent. That said, the code likely only needs a few changes to run smoothly on Python 3, and all dependencies should be compatible too.
-
-I can't update the code myself, as I need to block out enough daily time to play with my demanding cat. But I'll happily accept pull requests of people who heroically take on the challenge.
-
+This code base was originally written in Python 2 (it started as what seemed
+to be a really quick thing in 2019). It has since been ported to Python 3,
+and is tested on Python 3.12 with the dependency versions listed in
+`dependencies.txt`.
 
 License
 -------

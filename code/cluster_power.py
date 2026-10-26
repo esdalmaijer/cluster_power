@@ -11,7 +11,7 @@ import matplotlib
 from matplotlib import pyplot
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-from sklearn.metrics import adjusted_rand_score, calinski_harabaz_score, \
+from sklearn.metrics import adjusted_rand_score, calinski_harabasz_score, \
     silhouette_samples, silhouette_score
 
 import skfuzzy
@@ -253,7 +253,7 @@ for ci, cov_type in enumerate(COVARIANCE_TYPES):
                     # Load the covariance matrix.
                     if "mixed" in cov_type:
                         cov = numpy.zeros((N_FEATURES,N_FEATURES,len(p)), \
-                            dtype=float) * numpy.NaN
+                            dtype=float) * numpy.nan
                         for i in range(len(p)):
                             cov_path = os.path.join(COV_DIR, "{}.csv".format( \
                                 COVARIANCE_MIXES[cov_type][i]))
@@ -391,7 +391,7 @@ for di, dim_reduction_method in enumerate(dim_reduction_methods):
 
             # Create an empty d-D matrix.
             dims = (len(N_DIFFERENT_FEATURES), len(M_DIFFERENCE))
-            m = numpy.zeros(dims, dtype=float) * numpy.NaN
+            m = numpy.zeros(dims, dtype=float) * numpy.nan
 
             # Loop through all datasets.
             for ni, n_diff in enumerate(N_DIFFERENT_FEATURES):
@@ -468,13 +468,13 @@ if len(centroid_D.keys()) > 0:
     # Auto-detect all datasets.
     all_names = []
     for name in centroid_D.keys():
-        if ("MDS" not in name) and ("UMAP" not in name) and (name is not "truth"):
+        if ("MDS" not in name) and ("UMAP" not in name) and (name != "truth"):
             all_names.append(name)
     all_names.sort()
     
     # Create an d-D matrix for the population centroid distances.
     dims = (len(N_DIFFERENT_FEATURES), len(M_DIFFERENCE))
-    centroid_D["truth"] = numpy.zeros(dims, dtype=float) * numpy.NaN
+    centroid_D["truth"] = numpy.zeros(dims, dtype=float) * numpy.nan
     # Loop through all used numbers of different features and effect sizes.
     for ni, n_diff in enumerate(N_DIFFERENT_FEATURES):
         for di, m_diff in enumerate(M_DIFFERENCE):
@@ -610,9 +610,9 @@ for ci, cluster_method in enumerate(CLUSTER_ALGORITHMS):
         
         # Create empty matrices to hold the outcomes in.
         y = numpy.zeros((X.shape[0],len(CLUSTER_K[cluster_method])), dtype=int) \
-            * numpy.NaN
+            * numpy.nan
         s = numpy.zeros((X.shape[0],len(CLUSTER_K[cluster_method])), dtype=float) \
-            * numpy.NaN
+            * numpy.nan
 
         # Run through the requested numbers of clusters.
         for ki, k in enumerate(CLUSTER_K[cluster_method]):
@@ -688,9 +688,9 @@ for cmi, cluster_method in enumerate(CLUSTER_ALGORITHMS):
                 # Create an empty d-D matrix.
                 dims = (len(N_DIFFERENT_FEATURES), len(M_DIFFERENCE), \
                     len(CLUSTER_K[cluster_method]))
-                p_overlap = numpy.zeros(dims, dtype=float) * numpy.NaN
-                s_avg = numpy.zeros(dims, dtype=float) * numpy.NaN
-                r_scr = numpy.zeros(dims, dtype=float) * numpy.NaN
+                p_overlap = numpy.zeros(dims, dtype=float) * numpy.nan
+                s_avg = numpy.zeros(dims, dtype=float) * numpy.nan
+                r_scr = numpy.zeros(dims, dtype=float) * numpy.nan
     
                 # Loop through all datasets.
                 for ni, n_diff in enumerate(N_DIFFERENT_FEATURES):
@@ -715,9 +715,9 @@ for cmi, cluster_method in enumerate(CLUSTER_ALGORITHMS):
                             delimiter=",", skiprows=1, unpack=False)
                         y_truth = raw[:,0].astype(int)
                         y = numpy.zeros((raw.shape[0],len(CLUSTER_K[cluster_method])), \
-                            dtype=int) * numpy.NaN
+                            dtype=int) * numpy.nan
                         s = numpy.zeros((raw.shape[0],len(CLUSTER_K[cluster_method])), \
-                            dtype=float) * numpy.NaN
+                            dtype=float) * numpy.nan
                         for i, k in enumerate(CLUSTER_K[cluster_method]):
                             y[:,i] = raw[:,1+2*i]
                             s[:,i] = raw[:,2+2*i]
@@ -795,9 +795,9 @@ for cmi, cluster_method in enumerate(CLUSTER_ALGORITHMS):
                     cbar = fig.colorbar(im, cax=cax, orientation='vertical')
                     cbar.set_label(var, fontsize=16)
                     # Add axis ticks.
-                    ax.set_xticks(numpy.arange(0, m.shape[1]+1))
+                    ax.set_xticks(numpy.arange(0, m.shape[1]))
                     ax.set_xticklabels(map(str, M_DIFFERENCE), fontsize=12)
-                    ax.set_yticks(numpy.arange(0, m.shape[0]+1))
+                    ax.set_yticks(numpy.arange(0, m.shape[0]))
                     ax.set_yticklabels(map(str, numpy.round( \
                         numpy.array(N_DIFFERENT_FEATURES, dtype=float) \
                         / numpy.max(N_DIFFERENT_FEATURES), \
@@ -842,7 +842,7 @@ for ci, cluster_method in enumerate(SIM_CLUSTER_METHODS):
         wspace=0.2, hspace=0.2)
 
     # Create a normed colourmap.
-    cmap = matplotlib.cm.get_cmap("viridis")
+    cmap = matplotlib.colormaps["viridis"]
     norm = matplotlib.colors.Normalize(vmin=0, vmax=max(SIM_D))
     col = cmap(norm(0.5))
     
@@ -882,11 +882,11 @@ for ci, cluster_method in enumerate(SIM_CLUSTER_METHODS):
     
             # Create vectors to hold outcomes in.
             dim = (len(SIM_N), SIM_N_ITERATIONS_PER_CELL)
-            sil = numpy.zeros(dim, dtype=float) * numpy.NaN
-            pwr = numpy.zeros(dim, dtype=float) * numpy.NaN
-            p_k = numpy.zeros(dim, dtype=float) * numpy.NaN
-            ran = numpy.zeros(dim, dtype=float) * numpy.NaN
-            acc = numpy.zeros(dim, dtype=float) * numpy.NaN
+            sil = numpy.zeros(dim, dtype=float) * numpy.nan
+            pwr = numpy.zeros(dim, dtype=float) * numpy.nan
+            p_k = numpy.zeros(dim, dtype=float) * numpy.nan
+            ran = numpy.zeros(dim, dtype=float) * numpy.nan
+            acc = numpy.zeros(dim, dtype=float) * numpy.nan
             
             # Loop through all simulations.
             for ni, n in enumerate(SIM_N):
@@ -947,12 +947,12 @@ for ci, cluster_method in enumerate(SIM_CLUSTER_METHODS):
                     
                     # Create empty matrices to hold the outcomes in.
                     y = numpy.zeros((X.shape[0],len(CLUSTER_K[cluster_method])), \
-                        dtype=int) * numpy.NaN
+                        dtype=int) * numpy.nan
                     s = numpy.zeros((X.shape[0],len(CLUSTER_K[cluster_method])), \
-                        dtype=float) * numpy.NaN
+                        dtype=float) * numpy.nan
                     if cluster_method == "CMEANS":
                         s_fuzz = numpy.zeros(len(CLUSTER_K[cluster_method]), \
-                            dtype=float) * numpy.NaN
+                            dtype=float) * numpy.nan
 
                     # Run cluster analyses.
                     for ki, k_guess in enumerate(CLUSTER_K[cluster_method]):
